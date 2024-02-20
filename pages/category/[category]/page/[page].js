@@ -97,3 +97,5 @@ export async function getStaticProps(context) {
 
 
 }
+
+export const runtime = "experimental-edge";
