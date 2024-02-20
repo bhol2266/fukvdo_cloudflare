@@ -32,7 +32,7 @@ export const PasswordReset = () => {
 
         try {
             const parcelData = { email: Email.trim(), otp: OTP }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/verifyOtp`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/verifyOtp`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export const PasswordReset = () => {
         setloading(true)
         try {
             const parcelData = { email: Email.trim() }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/resendOTP`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/resendOTP`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -131,7 +131,7 @@ export const PasswordReset = () => {
 
         try {
             const parcelData = { email: Email.trim(), password: password }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/forgotPassword`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/forgotPassword`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -261,7 +261,7 @@ export const PasswordReset = () => {
 
                             {OTP_Sent === 0 &&
 
-                                <button onClick={resendOTP} className='font-normal text-[14px] text-center w-[154px] h-[30px]  mx-auto text-white bg-theme hover:bg-red-600 rounded-[5px] block'>{passwordUpdated ?"Go to login":"Confirm" }</button>
+                                <button onClick={resendOTP} className='font-normal text-[14px] text-center w-[154px] h-[30px]  mx-auto text-white bg-theme hover:bg-red-600 rounded-[5px] block'>{passwordUpdated ? "Go to login" : "Confirm"}</button>
                             }
 
                             {OTP_Sent === 1 &&

@@ -75,7 +75,7 @@ export const SignUpForm = () => {
 
         try {
             const parcelData = { firstName: firstName.trim(), lastName: lastName.trim(), email: Email.trim(), password: password, country: Country }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/register`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/register`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

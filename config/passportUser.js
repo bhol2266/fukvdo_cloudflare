@@ -33,10 +33,10 @@ passport.use(
                     accountType: "google"
                 }
 
-            
-                const parcelData = { firstName: firstName.trim(), lastName: lastName.trim(), email: profile.emails[0].value, password: 'NOT_SET', country: ""}
 
-                const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/fb_googleLogin`, {
+                const parcelData = { firstName: firstName.trim(), lastName: lastName.trim(), email: profile.emails[0].value, password: 'NOT_SET', country: "" }
+
+                const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/fb_googleLogin`, {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ passport.use(
 
                 const parcelData = { firstName: firstName.trim(), lastName: lastName.trim(), email: profile.emails[0].value, password: 'NOT_SET', country: "" }
 
-                const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/fb_googleLogin`, {
+                const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/fb_googleLogin`, {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'

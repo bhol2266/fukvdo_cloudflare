@@ -69,7 +69,7 @@ export const LoginForm = () => {
 
         try {
             const parcelData = { email: email.trim(), password: password }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/login`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/login`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -219,13 +219,13 @@ export const LoginForm = () => {
 
 
 
-            
+
 
 
 
 
             </div>
-        
+
 
         </div>
 

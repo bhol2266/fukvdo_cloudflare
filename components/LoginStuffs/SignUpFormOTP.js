@@ -37,7 +37,7 @@ export const SignUpFormOTP = () => {
 
         try {
             const parcelData = { email: email.trim(), otp: OTP }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/verifyOtp`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/verifyOtp`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -57,11 +57,11 @@ export const SignUpFormOTP = () => {
             if (res.message === 'OTP Verified') {
                 setCookie('email', email.trim(), { maxAge: 900000 });
                 setCookie('membership', false, { maxAge: 900000 });
-                setCookie('account','credential', { maxAge: 900000 });
+                setCookie('account', 'credential', { maxAge: 900000 });
 
                 //Update loggedIn in DB
                 const parcelData = { email: email.trim() }
-                const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/updateloggedIn`, {
+                const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/updateloggedIn`, {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ export const SignUpFormOTP = () => {
         setloading(true)
         try {
             const parcelData = { email: email.trim() }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/resendOTP`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/resendOTP`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

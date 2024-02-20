@@ -73,7 +73,7 @@ function Navbar() {
 
         try {
             const parcelData = { email: Email }
-            const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/logout`, {
+            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/logout`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -357,7 +357,7 @@ function Navbar() {
                     <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center p-1 hover:text-black  '>Catergories</p>
                 </Link>
 
-        
+
                 <Link href='https://play.google.com/store/apps/details?id=com.bhola.livevideochat&hl=en-IN'>
                     <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center p-1 hover:text-black '>Sex Chat</p>
                 </Link>

@@ -88,7 +88,7 @@ export default function Home({ video_collection, pages, desiVideosDataArray, des
 
       }
       const parcelData = { email: email.trim(), country: country }
-      const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/updateCountry`, {
+      const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/updateCountry`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -213,7 +213,7 @@ export async function getStaticProps({ req, res }) {
 
   const parcelData = { href: "https://spankbang.party/" }
 
-  const API_URL=`https://clownfish-app-jn7w9.ondigitalocean.app/getHomePageVideos`;
+  const API_URL = `https://clownfish-app-jn7w9.ondigitalocean.app/getHomePageVideos`;
 
   const rawResponse = await fetch(API_URL, {
     headers: {

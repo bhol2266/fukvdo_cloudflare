@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 export default async function (req, res, next) {
     passport.authenticate("facebook", (err, data) => {
         if (err || !data) {
-            return res.redirect(`${process.env.FRONTEND_URL}api/login/login`);
+            return res.redirect(`${process.env.BACKEND_URL}chutlunds/login`);
         }
 
 

@@ -19,7 +19,7 @@ function Category({ video_collection, pages }) {
     if (video_collection.length !== 0 && typeof getCookie('email') !== 'undefined') {
 
       const parcelData = { searchKey: searchkey.trim(), email: getCookie('email') }
-      const rawResponse = await fetch(`${process.env.FRONTEND_URL}api/login/updatekeywords`, {
+      const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/updatekeywords`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
