@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /pornstar/query
+Disallow: /search/query   
+Disallow: /category/query
+Disallow: http://fuckvideo.live/
+Disallow: https://fuckvideo.live/
+Allow: /
+
+
+Sitemap: https://www.fuckvideo.live/sitemap.xml
