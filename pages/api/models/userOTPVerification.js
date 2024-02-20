@@ -13,3 +13,5 @@ const UserOTPVerificationSchema = new mongoose.Schema({
 
 const UserOTPVerification = mongoose.model('otp', UserOTPVerificationSchema)
 module.exports = UserOTPVerification;
+
+export const runtime = "experimental-edge";

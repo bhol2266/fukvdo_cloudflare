@@ -25,3 +25,6 @@ export default async function handler(req, res) {
 
     return res.status(200).send({ sucess: true, data: { email: email }, message: 'Password Updated' })
 }
+
+
+export const runtime = "experimental-edge";

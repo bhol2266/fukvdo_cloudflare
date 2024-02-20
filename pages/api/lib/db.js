@@ -20,3 +20,5 @@ async function dbConnect() {
 
 }
 export default dbConnect
+
+export const runtime = "experimental-edge";

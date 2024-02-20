@@ -10,3 +10,6 @@ export default async function handler(req, res) {
         return res.status(500).send("Error Re-Validating:")
     }
 }
+
+
+export const runtime = "experimental-edge";

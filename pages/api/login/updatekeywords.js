@@ -41,3 +41,6 @@ export default async function handler(req, res) {
 
     return res.status(200).send({ sucess: true, data: { keywords: newArray }, message: 'Keywords Update' })
 }
+
+
+export const runtime = "experimental-edge";

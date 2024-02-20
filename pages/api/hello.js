@@ -21,3 +21,6 @@ export default async function handler(req) {
 
   return new Response(responseText)
 }
+
+
+export const runtime = "experimental-edge";

@@ -55,5 +55,6 @@ export const deleteOTP_DB = async function (otp) {
 }
 
 
+export const runtime = "experimental-edge";
 
 

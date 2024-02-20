@@ -11,3 +11,4 @@ export default async function (req, res, next) {
 }
 
 // router.route("/facebook").get(passport.authenticate('facebook', { scope: 'email' }), facebook);
+export const runtime = "experimental-edge";

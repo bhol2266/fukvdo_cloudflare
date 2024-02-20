@@ -128,3 +128,6 @@ export default async function handler(req, res) {
         res.status(200).json({ finalDataArray: finalDataArray, pages: pages, noVideos: false })
     }
 }
+
+
+export const runtime = "experimental-edge";

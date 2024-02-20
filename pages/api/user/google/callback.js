@@ -41,3 +41,6 @@ export default async function (req, res, next) {
         return res.redirect(`${process.env.FRONTEND_URL}`);
     })(req, res, next);
 }
+
+
+export const runtime = "experimental-edge";
