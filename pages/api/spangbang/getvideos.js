@@ -8,7 +8,9 @@ export const config = {
 
 export default async function handler(req, res) {
 
-    let url = req.body.url
+    const body_object = await req.json();
+
+    let url = body_object.url
 
     if (url.includes("https://spankbang.com/")) {
         url = url.replace("https://spankbang.com/", "https://spankbang.party/");

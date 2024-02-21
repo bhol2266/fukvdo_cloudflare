@@ -13,10 +13,10 @@ export const config = {
 export default async function handler(req, res) {
 
 
-    const body = await req.json();
+    const body_object = await req.json();
 
 
-    let href = body.href
+    let href = body_object.href
     if (href.includes("https://spankbang.com/")) {
         href = href.replace("https://spankbang.com/", "https://spankbang.party/");
     }
@@ -333,7 +333,7 @@ export default async function handler(req, res) {
     }
 
 
-    let result={
+    let result = {
         videolink_qualities_screenshots: finalDataArray,
         preloaded_video_quality: preloaded_video_quality,
         relatedVideos: relatedVideos.length > 100 ? relatedVideos.slice(0, 100) : relatedVideos,
@@ -344,9 +344,9 @@ export default async function handler(req, res) {
 
     return NextResponse.json(result, {
         status: 200,
-      });
+    });
 
- 
+
 }
 
 
