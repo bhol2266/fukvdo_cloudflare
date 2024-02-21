@@ -3,12 +3,20 @@ import cheerio from 'cheerio';
 import { scrapeVideos } from './spangbang';
 import extractUrls from "extract-urls";
 
+import { NextResponse, NextRequest } from "next/server";
+export const config = {
+    runtime: 'edge',
+}
+
+
+
 export default async function handler(req, res) {
 
-  
+
+    const body = await req.json();
 
 
-    let href = req.body.href
+    let href = body.href
     if (href.includes("https://spankbang.com/")) {
         href = href.replace("https://spankbang.com/", "https://spankbang.party/");
     }
@@ -325,16 +333,20 @@ export default async function handler(req, res) {
     }
 
 
-
-    res.status(200).json({
+    let result={
         videolink_qualities_screenshots: finalDataArray,
         preloaded_video_quality: preloaded_video_quality,
         relatedVideos: relatedVideos.length > 100 ? relatedVideos.slice(0, 100) : relatedVideos,
         pornstar: pornstar,
         video_details: videodetails,
         noVideos: noVideos,
-    })
+    }
+
+    return NextResponse.json(result, {
+        status: 200,
+      });
+
+ 
 }
 
 
-export const runtime = "experimental-edge";

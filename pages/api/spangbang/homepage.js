@@ -1,5 +1,12 @@
 import cheerio from 'cheerio';
 
+import { NextResponse, NextRequest } from "next/server";
+export const config = {
+    runtime: 'edge',
+}
+
+
+
 
 export default async function handler(req, res) {
 
@@ -113,8 +120,13 @@ export default async function handler(req, res) {
         finalDataArray = []
     })
 
-    res.status(200).json({ finalDataArray: finalDataArray_Arrar })
+
+
+    return NextResponse.json(finalDataArray_Arrar, {
+        status: 200,
+    });
+
+
 }
 
 
-export const runtime = "experimental-edge";

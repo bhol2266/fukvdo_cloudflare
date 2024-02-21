@@ -1,4 +1,9 @@
 import cheerio from 'cheerio';
+import { NextResponse, NextRequest } from "next/server";
+export const config = {
+    runtime: 'edge',
+}
+
 
 
 export default async function handler(req, res) {
@@ -121,13 +126,20 @@ export default async function handler(req, res) {
     }
 
     if (finalDataArray.length == 0) {
-        res.status(200).json({ finalDataArray: finalDataArray, pages: pages, noVideos: true })
+
+        let result = { finalDataArray: finalDataArray, pages: pages, noVideos: true }
+        return NextResponse.json(result, {
+            status: 200,
+        });
+
 
     } else {
 
-        res.status(200).json({ finalDataArray: finalDataArray, pages: pages, noVideos: false })
+        let result = { finalDataArray: finalDataArray, pages: pages, noVideos: false }
+        return NextResponse.json(result, {
+            status: 200,
+        });
     }
 }
 
 
-export const runtime = "experimental-edge";
