@@ -213,7 +213,7 @@ export async function getStaticProps({ req, res }) {
 
   const parcelData = { href: "https://spankbang.party/" }
 
-  const API_URL = `https://clownfish-app-jn7w9.ondigitalocean.app/getHomePageVideos`;
+  const API_URL = `${process.env.BACKEND_URL}getHomePageVideos`;
 
   const rawResponse = await fetch(API_URL, {
     headers: {

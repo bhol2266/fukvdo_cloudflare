@@ -7,10 +7,12 @@ import Navbar from '../components/Navbar'
 import VideoState from '../context/videos/VideoState'
 import '../styles/globals.css'
 import '../styles/nProgress.css'
+import { SessionProvider } from "next-auth/react"
 
 
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component,
+  pageProps: { session, ...pageProps }, }) {
 
   Router.events.on("routeChangeStart", (ur = -0) => {
     NProgress.start();
@@ -53,21 +55,24 @@ function MyApp({ Component, pageProps }) {
         gtag('config', 'G-JDD6RJ6XQQ');`}
       </Script>
 
+      <SessionProvider session={session}>
 
-      <VideoState>
+        <VideoState>
 
-        {/* <LoginForm />
+          {/* <LoginForm />
         <SignUpForm/>
         <SignUpFormOTP/>
         <PasswordReset/> */}
-        <Navbar />
-        <div className='basicMargin '>
-          <Component {...pageProps} />
-        </div>
-        <hr />
-        
-        <Footer />
-      </VideoState>
+          <Navbar />
+          <div className='basicMargin '>
+            <Component {...pageProps} />
+          </div>
+          <hr />
+
+          <Footer />
+        </VideoState>
+      </SessionProvider>
+
     </>
   )
 }

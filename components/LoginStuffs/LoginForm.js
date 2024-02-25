@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import { XCircleIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
+import { getCookie, setCookie } from "cookies-next"
 import Router, { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
+import { useContext, useEffect, useState } from 'react'
 import videosContext from '../../context/videos/videosContext'
-import ClipLoader from "react-spinners/ClipLoader";
-import { setCookie, getCookie } from "cookies-next";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 
 
@@ -17,9 +13,7 @@ import { setCookie, getCookie } from "cookies-next";
 export const LoginForm = () => {
 
     const router = useRouter()
-
-
-
+ 
     const { OTPemail, setOTPemail, loggedIn, setloggedIn } = useContext(videosContext)
 
     const [loading, setloading] = useState(false);
@@ -56,8 +50,8 @@ export const LoginForm = () => {
     }
 
 
-    const SignIn = async (route) => {
-        router.push(`/api/${route}`)
+    const SignIn = async (auth_provider) => {
+        signIn(auth_provider, { callbackUrl: "customRoute" });
     }
 
     const submitForm = async (event) => {
@@ -204,14 +198,14 @@ export const LoginForm = () => {
 
             <div className=' w-full  mt-[76px]  mx-auto  flex flex-col items-start  space-y-6 px-6'>
 
-                <div onClick={() => SignIn('user/google')}
+                <div onClick={() => SignIn('google')}
                     className='hover:bg-slate-200 w-full rounded-xl  flex items-center justify-center space-x-4 cursor-pointer py-1.5  px-6 border-[1px] border-slate-300  '>
                     <img src='/login/google.png' className='lg:h-[38px] object-contain h-[28px] w-[28px] cursor-pointer ml-1'></img>
                     <h2 className=' font-semibold font-inter text-[#323232] text-[11px] lg:text-[14px]'>Continue with Google</h2>
                 </div>
 
 
-                <div onClick={() => SignIn('user/facebook')}
+                <div onClick={() => SignIn('facebook')}
                     className='hover:bg-slate-200 w-full  flex items-center justify-center space-x-4 cursor-pointer py-1.5  px-6  rounded-xl border-[1px] border-slate-300 '>
                     <img src='/login/facebook.png' className='lg:h-[40px] object-contain h-[28px] w-[28px] cursor-pointer ml-1'></img>
                     <h2 className='font-semibold font-inter text-[#323232] text-[11px] lg:text-[14px]'>Continue with Facebook</h2>

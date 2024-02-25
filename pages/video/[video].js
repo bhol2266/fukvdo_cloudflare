@@ -11,6 +11,7 @@ import Outstreams from '../../components/Ads/Outstream';
 import VideoPlayer from '../../components/VideoPlayer';
 import Videos from '../../components/Videos';
 // import { getVideoPageData } from '../../config/videoPlayer';
+import { useSession } from "next-auth/react";
 import { BeatLoader } from 'react-spinners';
 import InterstitialAds from '../../components/Ads/InterstitialAds';
 
@@ -19,6 +20,7 @@ function Videoplayer() {
 
     const router = useRouter()
     const { video } = router.query;
+    const { data: session } = useSession()
 
     const [spinnerLoading, setspinnerLoading] = useState(true)
     const [serverError, setServerError] = useState(false);
@@ -34,7 +36,6 @@ function Videoplayer() {
     const [Quality, setQuality] = useState("")
     const [VideoSrc, setVideoSrc] = useState("")
     const [tagString, settagString] = useState('');
-    const [loggedIn, setloggedIn] = useState(false);
     const [tags, settags] = useState([]);
 
     const [countryVideo, setcountryVideo] = useState([]);
@@ -136,12 +137,6 @@ function Videoplayer() {
         }, 3000);
 
 
-        const emailExists = getCookie("email");
-        if (typeof emailExists !== 'undefined' && emailExists.length > 4) {
-            setloggedIn(true)
-        }
-
-
 
 
     }, [router.isReady]);
@@ -217,7 +212,7 @@ function Videoplayer() {
                         <div className='py-1  rounded overflow-hidden sm:cursor-pointer md:w-4/5'>
 
 
-                            <VideoPlayer video_details={video_details} VideoSrc={VideoSrc} Qualitys={Quality} videolink_qualities_screenshots={videolink_qualities_screenshots} preloaded_video_quality={preloaded_video_quality} pornstar={pornstar} loggedIn={loggedIn} />
+                            <VideoPlayer video_details={video_details} VideoSrc={VideoSrc} Qualitys={Quality} videolink_qualities_screenshots={videolink_qualities_screenshots} preloaded_video_quality={preloaded_video_quality} pornstar={pornstar} />
 
 
                         </div>

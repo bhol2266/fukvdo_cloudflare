@@ -11,12 +11,13 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots, preloaded_video_qualityy, pornstar, loggedIn }) => {
+const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots, preloaded_video_qualityy, pornstar }) => {
 
 
 
@@ -24,6 +25,7 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
         return pornstar.indexOf(element) === index;
     });
 
+    const { data: session, status } = useSession()
 
     const videoPlayerRef = useRef(null)
     const playBtnRef = useRef(null)
@@ -86,9 +88,8 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
 
     const download = () => {
 
-        if (!loggedIn) {
-            setCookie('videoRoute', window.location.href
-            );
+        if (!session) {
+            setCookie('videoRoute', window.location.href);
             router.push('/account/login')
         } else {
             router.push(VideoSrc)
