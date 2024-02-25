@@ -69,5 +69,5 @@ export const authOptions = {
 };
 
 export default NextAuth(authOptions);
-
+ 	  export const runtime = 'edge';
 
