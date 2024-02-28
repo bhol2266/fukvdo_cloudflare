@@ -35,9 +35,6 @@ function classNames(...classes) {
 function Navbar() {
 
     const { user, logOut } = UserAuth();
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
 
     const router = useRouter();
    
