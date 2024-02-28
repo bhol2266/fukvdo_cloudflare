@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { getMessaging } from "firebase/messaging";
+import { getAuth } from "firebase/auth";
 
 export const firebaseConfig = {
     apiKey: "AIzaSyCVEgwafQ32QhL_3Ryy32HPWa9z0VwDvyE",
@@ -16,9 +16,4 @@ export const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Cloud Messaging and get a reference to the service
-// const messaging = getMessaging(app);
-
-// Initialize Realtime Database and get a reference to the service
-const database = getDatabase(app);
+export const auth = getAuth(app);

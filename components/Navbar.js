@@ -1,8 +1,8 @@
 import { deleteCookie, getCookie } from "cookies-next";
-import { signOut, useSession } from "next-auth/react";
 import { useContext, useEffect, useRef, useState, } from 'react';
 import ReactCountryFlag from "react-country-flag";
 import videosContext from '../context/videos/videosContext';
+import { UserAuth } from "../context/AuthContext";
 
 
 import { Fragment } from 'react';
@@ -34,8 +34,11 @@ function classNames(...classes) {
 
 function Navbar() {
 
-    const { data: session, status } = useSession()
-  
+    const { user, logOut } = UserAuth();
+    console.log('====================================');
+    console.log(user);
+    console.log('====================================');
+
     const router = useRouter();
    
     const context = useContext(videosContext);
@@ -59,7 +62,7 @@ function Navbar() {
     const signOut_method = async () => {
 
         
-        const Email = session.user.email
+        const Email = user.email
         deleteCookie('membership');
         deleteCookie('countryUpdated_DB');
         deleteCookie('account');
@@ -77,7 +80,7 @@ function Navbar() {
             });
             const res = await rawResponse.json();
             console.log(res);
-            signOut();
+            logOut();
 
         } catch (error) {
             window.location.reload()
@@ -203,11 +206,11 @@ function Navbar() {
                                         <div>
                                             <Menu.Button className=" ">
 
-                                                {!session &&
+                                                {!user &&
                                                     <img src='/login/user.png' className='cursor-pointer h-5 w-5 mt-1.5'></img>
                                                 }
 
-                                                {session &&
+                                                {user &&
                                                     <img src='/login/userOnline.png' className='cursor-pointer h-5 w-5 mt-1.5'></img>
                                                 }
                                             </Menu.Button>
@@ -226,7 +229,7 @@ function Navbar() {
 
 
 
-                                                {!session &&
+                                                {!user &&
                                                     <Menu.Item>
                                                         <button onClick={() => { router.push('/account/login') }} className='text-white w-[150px] h-[30px] text-[11px] font-inter px-[25px] py-[7px] bg-button hover:bg-button_hover rounded mt-[24px] mx-auto'>
                                                             Sign In / Sign Up
@@ -236,12 +239,12 @@ function Navbar() {
 
                                                 }
 
-                                                {session &&
-                                                    <h2 className='font-Opensans text-theme  text-[14px] cursor-pointer text-center font-semibold my-2'>{session.user.email}</h2>
+                                                {user &&
+                                                    <h2 className='font-Opensans text-theme  text-[14px] cursor-pointer text-center font-semibold my-2'>{user.email}</h2>
                                                 }
 
 
-                                                {session &&
+                                                {user &&
                                                     <Menu.Item>
                                                         <button onClick={signOut_method} className='text-white w-[150px] h-[30px] text-[11px] font-inter px-[25px] py-[7px] bg-button hover:bg-button_hover rounded mt-[8px] mx-auto'>
                                                             Sign Out
@@ -453,16 +456,16 @@ function Navbar() {
                         <div className='flex items-center '>
                             {/* <UserIcon className='h-8 w-8' /> */}
 
-                            {!session &&
+                            {!user &&
                                 <div className='flex items-center space-x-2 pr-12 font-inter'>
                                     <p onClick={() => { router.push('/account/login') }} className=' m-2 rounded underline  pl-2 pr-2  cursor-pointer hover:text-white'>Login</p>
                                     {/* <p onClick={() => { router.push('/account/register') }} className='m-1 underline rounded   pl-2 pr-2  cursor-pointer hover:text-white'>Register</p> */}
                                 </div>
                             }
 
-                            {session &&
+                            {user &&
                                 <div className='flex items-center space-x-2 pr-12 font-inter'>
-                                    <p className=' m-2 rounded underline   pl-2 pr-2 cursor-pointer '>{session.user.email}</p>
+                                    <p className=' m-2 rounded underline   pl-2 pr-2 cursor-pointer '>{user.email}</p>
                                     <button className='font-inter bg-green-500 px-3 py-1 rounded' onClick={signOut_method}>Logout</button>
                                 </div>
                             }

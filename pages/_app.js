@@ -8,7 +8,7 @@ import VideoState from '../context/videos/VideoState'
 import '../styles/globals.css'
 import '../styles/nProgress.css'
 import { SessionProvider } from "next-auth/react"
-
+import { AuthContextProvider } from '@/context/AuthContext'
 
 
 function MyApp({ Component,
@@ -55,23 +55,25 @@ function MyApp({ Component,
         gtag('config', 'G-JDD6RJ6XQQ');`}
       </Script>
 
-      <SessionProvider session={session}>
+      <AuthContextProvider> 
+        <SessionProvider session={session}>
 
-        <VideoState>
+          <VideoState>
 
-          {/* <LoginForm />
+            {/* <LoginForm />
         <SignUpForm/>
         <SignUpFormOTP/>
-        <PasswordReset/> */}
-          <Navbar />
-          <div className='basicMargin '>
-            <Component {...pageProps} />
-          </div>
-          <hr />
+      <PasswordReset/> */}
+            <Navbar />
+            <div className='basicMargin '>
+              <Component {...pageProps} />
+            </div>
+            <hr />
 
-          <Footer />
-        </VideoState>
-      </SessionProvider>
+            <Footer />
+          </VideoState>
+        </SessionProvider>
+      </AuthContextProvider>
 
     </>
   )

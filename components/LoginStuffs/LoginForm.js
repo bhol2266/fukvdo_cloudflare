@@ -2,8 +2,7 @@ import { getCookie, setCookie } from "cookies-next"
 import Router, { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import videosContext from '../../context/videos/videosContext'
-import { useSession, signIn, signOut } from "next-auth/react"
-
+import { UserAuth } from "../../context/AuthContext";
 
 
 
@@ -13,7 +12,9 @@ import { useSession, signIn, signOut } from "next-auth/react"
 export const LoginForm = () => {
 
     const router = useRouter()
- 
+
+    const { user, googleSignIn, logOut } = UserAuth();
+
     const { OTPemail, setOTPemail, loggedIn, setloggedIn } = useContext(videosContext)
 
     const [loading, setloading] = useState(false);
@@ -23,15 +24,6 @@ export const LoginForm = () => {
     const [Country, setCountry] = useState('');
 
 
-    useEffect(() => {
-        if (typeof getCookie('email') !== 'undefined') {
-            router.push('/')
-        }
-
-        getLocation()
-
-
-    }, []);
 
     async function getLocation() {
         try {
@@ -51,76 +43,31 @@ export const LoginForm = () => {
 
 
     const SignIn = async (auth_provider) => {
-        signIn(auth_provider, { callbackUrl: "customRoute" });
-    }
-
-    const submitForm = async (event) => {
-
-        event.preventDefault();
-        setmessage('')
-        setloading(true)
-
-
         try {
-            const parcelData = { email: email.trim(), password: password }
-            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/login`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify(parcelData),
-            });
-
-            const res = await rawResponse.json();
-            console.log(res);
-            setloading(false)
-
-            if (res.message === 'OTP Sent') {
-                setOTPemail(res.data.email)
-                Router.push({
-                    pathname: `/account/verifyOTP`,
-                    query: { email: email.trim() }
-                })
-            }
-
-            if (res.message === 'Password Incorrect') {
-                setmessage("Password Incorrect !")
-                return
-            }
-            if (res.message === 'User not found') {
-                setmessage("User not found !")
-                return
-            }
-
-            if (res.message === 'Logged In') {
-                setCookie('email', res.data.email, { maxAge: 900000 });
-                setCookie('account', 'credential', { maxAge: 900000 });
-                setCookie('membership', res.data.membership, { maxAge: 900000 });
-                setloggedIn(true)
-                router.push('/')
-
-            }
-
-
+            await googleSignIn();
         } catch (error) {
-            setloading(false)
             console.log(error);
-            alert(error);
-
         }
 
 
     }
 
-    const forgotPassword = async () => {
-        router.push('/account/forgotPassword')
-    }
+    const handleSignOut = async () => {
+        try {
+            await logOut();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    const registerClick = async () => {
-        router.push('/account/register')
-    }
+    useEffect(() => {
+        getLocation()
 
+        const checkAuthentication = async () => {
+            await new Promise((resolve) => setTimeout(resolve, 50));
+        };
+        checkAuthentication();
+    }, [user]);
 
 
 
