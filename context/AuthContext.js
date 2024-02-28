@@ -27,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
     };
 
     const logOut = () => {
-        router.push('/');
+        router.reload();
         signOut(auth);
     };
 
