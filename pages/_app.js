@@ -7,12 +7,10 @@ import Navbar from '../components/Navbar'
 import VideoState from '../context/videos/VideoState'
 import '../styles/globals.css'
 import '../styles/nProgress.css'
-import { SessionProvider } from "next-auth/react"
 import { AuthContextProvider } from '@/context/AuthContext'
 
 
-function MyApp({ Component,
-  pageProps: { session, ...pageProps }, }) {
+function MyApp({ Component, pageProps }) {
 
   Router.events.on("routeChangeStart", (ur = -0) => {
     NProgress.start();
@@ -55,8 +53,7 @@ function MyApp({ Component,
         gtag('config', 'G-JDD6RJ6XQQ');`}
       </Script>
 
-      <AuthContextProvider> 
-        <SessionProvider session={session}>
+      <AuthContextProvider>
 
           <VideoState>
 
@@ -72,7 +69,6 @@ function MyApp({ Component,
 
             <Footer />
           </VideoState>
-        </SessionProvider>
       </AuthContextProvider>
 
     </>

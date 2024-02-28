@@ -11,7 +11,6 @@ import Outstreams from '../../components/Ads/Outstream';
 import VideoPlayer from '../../components/VideoPlayer';
 import Videos from '../../components/Videos';
 // import { getVideoPageData } from '../../config/videoPlayer';
-import { useSession } from "next-auth/react";
 import { BeatLoader } from 'react-spinners';
 import InterstitialAds from '../../components/Ads/InterstitialAds';
 
@@ -20,7 +19,6 @@ function Videoplayer() {
 
     const router = useRouter()
     const { video } = router.query;
-    const { data: session } = useSession()
 
     const [spinnerLoading, setspinnerLoading] = useState(true)
     const [serverError, setServerError] = useState(false);
