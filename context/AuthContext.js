@@ -40,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const sendUserInfoToBackend = async (userdata) => {
         
-        router.reload(); // Assuming '/dashboard' is the desired destination
+        router.push("/"); // Assuming '/dashboard' is the desired destination
         const object = { firstName: userdata.displayName, lastName: "", email: userdata.email, password: "", country: "" }
         try {
             const response = await fetch(process.env.BACKEND_URL + 'chutlunds/fb_googleLogin', {
