@@ -242,3 +242,5 @@ console.log(`https://spankbang.party/${code}/channel/${channelname}/?o=long`);
         }
     }
 }
+
+ export const runtime = 'edge';
