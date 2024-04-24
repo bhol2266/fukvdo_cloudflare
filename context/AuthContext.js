@@ -8,6 +8,7 @@ import {
 import { auth } from "../firebase";
 const AuthContext = createContext();
 import { useRouter } from "next/router";
+import { saveUserProfile } from "@/config/firebase/lib";
 
 
 export const AuthContextProvider = ({ children }) => {
@@ -19,8 +20,10 @@ export const AuthContextProvider = ({ children }) => {
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider);
-            // Send user info to backend API
-            sendUserInfoToBackend(result.user);
+        //save user details to firestore
+            router.push("/"); // Assuming '/dashboard' is the desired destination
+            saveUserProfile(result.user.displayName, "", result.user.email, "", true, "", true, false, [])
+
         } catch (error) {
             console.error(error);
         }
@@ -38,24 +41,7 @@ export const AuthContextProvider = ({ children }) => {
         return () => unsubscribe();
     }, [user])
 
-    const sendUserInfoToBackend = async (userdata) => {
-        
-        router.push("/"); // Assuming '/dashboard' is the desired destination
-        const object = { firstName: userdata.displayName, lastName: "", email: userdata.email, password: "", country: "" }
-        try {
-            const response = await fetch(process.env.BACKEND_URL + 'chutlunds/fb_googleLogin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(object),
-            });
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+  
 
     return (
         <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
