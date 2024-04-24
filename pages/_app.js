@@ -8,9 +8,13 @@ import VideoState from '../context/videos/VideoState'
 import '../styles/globals.css'
 import '../styles/nProgress.css'
 import { AuthContextProvider } from '@/context/AuthContext'
+import { useRouter } from 'next/router';
 
 
 function MyApp({ Component, pageProps }) {
+
+  const router = useRouter();
+  const currentRoute = router.pathname;
 
   Router.events.on("routeChangeStart", (ur = -0) => {
     NProgress.start();
@@ -55,20 +59,22 @@ function MyApp({ Component, pageProps }) {
 
       <AuthContextProvider>
 
-          <VideoState>
+        <VideoState>
 
-            {/* <LoginForm />
+          {/* <LoginForm />
         <SignUpForm/>
         <SignUpFormOTP/>
       <PasswordReset/> */}
-            <Navbar />
-            <div className='basicMargin '>
-              <Component {...pageProps} />
-            </div>
-            <hr />
+          <Navbar />
+          <div className={`${currentRoute == "/membership" ? "" : "basicMargin"} `}>
+            <Component {...pageProps} />
+          </div>
+          <hr />
 
+          {currentRoute != "/membership" &&
             <Footer />
-          </VideoState>
+          }
+        </VideoState>
       </AuthContextProvider>
 
     </>

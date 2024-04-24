@@ -22,7 +22,9 @@ var navigation = [
     { name: 'Home', href: '/', current: true },
     { name: 'Category', href: '/category', current: false },
     { name: 'Pornstars', href: '/pornstar', current: false },
+    { name: 'Channels', href: '/channels', current: false },
     { name: 'Sex Chat', href: 'https://play.google.com/store/apps/details?id=com.bhola.livevideochat4&hl=en-IN', current: false },
+    { name: 'Join Now', href: '/membership', current: false },
     // { name: 'Live Cams', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },
     // { name: 'Meet & Fuck', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },
 ]
@@ -331,19 +333,25 @@ function Navbar() {
 
 
             </div>
-            <div className='flex justify-around items-center mb-1 bg-red-100 shadow-lg lg:hidden font-arial px-2'>
+            <div className='flex justify-around items-center mb-1 bg-blue-100 shadow-lg lg:hidden font-arial px-2'>
 
                 <Link href='/'>
-                    <p className=' sm:text-xl xl:text-[28px] text-md text-theme   text-center p-1 hover:text-black  '>Home</p>
+                    <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center p-1 hover:text-red-600  '>Home</p>
                 </Link>
 
                 <Link href='/category'>
-                    <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center p-1 hover:text-black  '>Catergories</p>
+                    <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center p-1 hover:text-red-600  '>Catergories</p>
                 </Link>
 
+                <Link href='/channels'>
+                    <div className='group flex items-center justify-center space-x-1 p-1'>
+                        <img src="/channel.png" alt="" className='h-5 mb-1' />
+                        <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center  group-hover:text-red-600 '>Channels</p>
+                    </div>
+                </Link>
 
-                <Link href='https://play.google.com/store/apps/details?id=com.bhola.livevideochat&hl=en-IN'>
-                    <p className=' sm:text-xl xl:text-[28px] text-md text-theme  text-center p-1 hover:text-black '>Sex Chat</p>
+                <Link href='/membership'>
+                    <p className=' sm:text-md text-sm text-white rounded-md text-center px-3 p-1 m-1  bg-red-500 hover:bg-red-600 block_popunder'>Join Now</p>
                 </Link>
 
 
@@ -351,6 +359,7 @@ function Navbar() {
 
 
             </div>
+
 
             {/* Large Sreeen NavBar  */}
 
@@ -468,13 +477,13 @@ function Navbar() {
 
 
 
-                <div className='w-full bg-red-100 text-theme items-center justify-around   flex mb-2 p-1 shadow-lg'>
+                <div className='w-full bg-blue-100 text-theme items-center justify-around   flex mb-2 p-1 shadow-lg'>
                     {navigation.map(item => {
 
                         return (
                             <Link href={item.href} key={item.name}>
 
-                                <p key={item.name} className='text-xl 2xl:text-2xl font-semibold cursor-pointer p-1 hover:text-black'>{item.name}</p>
+                                <p key={item.name} className={`${item.name === "Join Now" ? "text-white rounded-md text-center px-3 p-1 m-1  bg-red-500 text-lg hover:bg-red-600 block_popunder" : "text-xl 2xl:text-2xl font-semibold hover:text-red-400"} cursor-pointer p-1 `}>{item.name}</p>
                             </Link>
                         )
                     })}

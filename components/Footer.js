@@ -1,13 +1,11 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-import { useContext, useEffect } from 'react';
-import videosContext from '../context/videos/videosContext'
-import MultiformatAds from './Ads/MultiFormatAds';
+import { useContext } from 'react';
+import videosContext from '../context/videos/videosContext';
 
 
 function Footer() {
-
+  
     //Use Context
     const context = useContext(videosContext);
     const { spinnerLoading } = context;
@@ -69,7 +67,7 @@ function Footer() {
             </div>
 
             <div className='flex p-2 items-center justify-between  w-4/5 mx-auto'>
-                <p className='text-sm sm:text-md md:text-lg font-poppins font-bold'>© 2022 FuckVideo.com IS A FREE PORN VIDEOS</p>
+                <p className='text-sm sm:text-md md:text-lg font-poppins font-bold'>© 2022 Chutlunds.com IS A FREE PORN VIDEOS</p>
 
                 <div className='p-2  rounded'>
 
