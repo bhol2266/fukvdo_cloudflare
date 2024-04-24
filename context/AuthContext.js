@@ -8,7 +8,7 @@ import {
 import { auth } from "../firebase";
 const AuthContext = createContext();
 import { useRouter } from "next/router";
-import { saveUserProfile } from "@/config/firebase/lib";
+import { saveUserProfile, updateloggedIn } from "@/config/firebase/lib";
 
 
 export const AuthContextProvider = ({ children }) => {

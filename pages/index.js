@@ -14,6 +14,8 @@ import Category_slider from '../components/category_slider';
 import { getLanguge } from '../config/getLanguge';
 import { scrapeVideos } from '../config/spangbang';
 import videosContext from '../context/videos/videosContext';
+import { shuffleData, updateCountry } from '../config/firebase/lib';
+
 
 export default function Home({ video_collection, pages, desiVideosDataArray, desiMmsVideoArray }) {
 
@@ -55,25 +57,23 @@ export default function Home({ video_collection, pages, desiVideosDataArray, des
 
     const location_localstorage = localStorage.getItem("location")
     if (location_localstorage !== null) {
-      const parsedLoaction = JSON.parse(location_localstorage)
-      setcurrentLocation(parsedLoaction)
-      countryUpdated_DB(parsedLoaction.countryName)
-      setcountryName(parsedLoaction.countryName)
-      await fetchVideos(parsedLoaction)
+      const parsedLocation = JSON.parse(location_localstorage)
+      setcurrentLocation(parsedLocation)
+      countryUpdated_DB(parsedLocation.countryName)
+      await fetchVideos(parsedLocation)
 
     } else {
       try {
         const response = await fetch('https://api.db-ip.com/v2/free/self')
         const data = await response.json();
+
         setcurrentLocation(data)
         await fetchVideos(data)
         await countryUpdated_DB(data.countryName)
-        setcountryName(data.countryName)
         localStorage.setItem("location", JSON.stringify(data))
       } catch (error) {
         console.log(error);
       }
-
     }
   }
 
@@ -87,24 +87,9 @@ export default function Home({ video_collection, pages, desiVideosDataArray, des
         // return 
 
       }
-      const parcelData = { email: email.trim(), country: country }
-      const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/updateCountry`, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(parcelData),
-      });
-
-      const res = await rawResponse.json();
-      if (res.sucess) {
-        setCookie('countryUpdated_DB', true, { maxAge: 900000 })
-      }
-      console.log(res);
+      await updateCountry(email.trim(), country)
     }
   }
-
 
   useEffect(() => {
 

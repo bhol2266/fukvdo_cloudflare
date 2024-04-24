@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState, } from 'react';
 import ReactCountryFlag from "react-country-flag";
 import videosContext from '../context/videos/videosContext';
 import { UserAuth } from "../context/AuthContext";
-
+import { updateloggedIn } from "@/config/firebase/lib";
 
 import { Fragment } from 'react';
 
@@ -37,7 +37,7 @@ function Navbar() {
     const { user, logOut } = UserAuth();
 
     const router = useRouter();
-   
+
     const context = useContext(videosContext);
     const { currentLocation, countryBlocked } = context;
 
@@ -47,7 +47,7 @@ function Navbar() {
 
     useEffect(() => {
 
-    
+
         if (localStorage.getItem("location") && !currentLocation) {
             setlocation(JSON.parse(localStorage.getItem("location")))
         }
@@ -58,29 +58,19 @@ function Navbar() {
 
     const signOut_method = async () => {
 
-        
+
         const Email = user.email
         deleteCookie('membership');
         deleteCookie('countryUpdated_DB');
         deleteCookie('account');
         deleteCookie('email');
 
+        await updateloggedIn(Email, false)
         try {
-            const parcelData = { email: Email }
-            const rawResponse = await fetch(`${process.env.BACKEND_URL}chutlunds/logout`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify(parcelData),
-            });
-            const res = await rawResponse.json();
-            console.log(res);
             logOut();
 
         } catch (error) {
-            window.location.reload()
+            // window.location.reload()
         }
     }
 
