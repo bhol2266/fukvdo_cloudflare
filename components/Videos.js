@@ -7,8 +7,8 @@ import {
 } from '@heroicons/react/solid';
 import BannerAds from "./Ads/BannerAds";
 import Outstream from './Ads/Outstream';
-import PopunderAds_2 from "./Ads/Popunder2";
-import PopunderAds from "./Ads/Popunder";
+import PopunderAds_2 from "./Ads/PopunderAds";
+import PopunderAds from "./Ads/PopunderAds";
 
 function Videos({ data, type }) {
 
