@@ -243,5 +243,5 @@ console.log(`https://spankbang.party/${code}/channel/${channelname}/?o=long`);
     }
 }
 
-	  export const runtime = 'edge';
+export const runtime = "experimental-edge";
 
