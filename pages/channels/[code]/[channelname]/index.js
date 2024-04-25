@@ -1,6 +1,5 @@
 import cheerio from 'cheerio';
 import { useRouter } from "next/router";
-import fetchdata from 'node-fetch';
 import Head from 'next/head';
 import { BeatLoader } from 'react-spinners';
 import Pagination from '../../../../components/Pagination';
@@ -129,7 +128,7 @@ export async function getStaticProps(context) {
         var previewVideoArray = []
         var hrefArray = []
 
-        const response = await fetchdata(url)
+        const response = await fet(url)
         const body = await response.text();
         const $ = cheerio.load(body)
 
