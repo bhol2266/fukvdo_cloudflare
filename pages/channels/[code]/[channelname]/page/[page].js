@@ -5,9 +5,8 @@ import Pagination from '../../../../../components/Pagination';
 import Header from '../../../../../components/Pornstar/Header';
 import Sidebar from '../../../../../components/Sidebar';
 import Videos from "../../../../../components/Videos";
-
-import cheerio from 'cheerio';
 import { PlusIcon } from '@heroicons/react/outline';
+import cheerio from 'cheerio';
 
 
 
