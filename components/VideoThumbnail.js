@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 function VideoThumbnail({ details, type }) {
 
 
+
     const router = useRouter()
     const [videoPage, setvideoPage] = useState(false);
 
@@ -74,7 +75,7 @@ function VideoThumbnail({ details, type }) {
 
     return (
         <div className="">
-            <a href={`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray} >
+            <a href={ type == "premium" ? "/membership":`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray} >
                 <div className={`animate-fade flex  items-start  flex-col justify-center  cursor-pointer  shadow-md shadow-blue-200  rounded-lg overflow-hidden transform transition duration-150`}>
 
 
