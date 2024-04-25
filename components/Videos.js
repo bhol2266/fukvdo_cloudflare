@@ -1,24 +1,17 @@
-import VideoThumbnail from "./VideoThumbnail"
 import { useRouter } from "next/router";
-import { useState, useRef, } from "react";
-import ReactPaginate from "react-paginate";
-import { useContext, useEffect } from 'react'
-import videosContext from '../context/videos/videosContext'
-import ReactCountryFlag from "react-country-flag"
+import { useEffect, useState } from "react";
+import VideoThumbnail from "./VideoThumbnail";
 
-import Outstream from './Ads/Outstream'
-import Link from 'next/link'
-import {
-    ChevronRightIcon,
-} from '@heroicons/react/outline';
 import {
     LightningBoltIcon,
 } from '@heroicons/react/solid';
-import MultiformatAds from "./Ads/MultiFormatAds";
-import InstantMessageAds from "./Ads/InstantMessage";
-import PopunderAds from "./Ads/PopunderAds";
+import BannerAds from "./Ads/BannerAds";
+import Outstream from './Ads/Outstream';
+import PopunderAds_2 from "./Ads/Popunder2";
+import PopunderAds from "./Ads/Popunder";
 
-function Videos({ data }) {
+function Videos({ data, type }) {
+
 
     const router = useRouter()
 
@@ -37,9 +30,7 @@ function Videos({ data }) {
 
     return (
         <div className=" w-full h-fit ">
-            {currentPath !== "blocked" &&
-                <MultiformatAds />
-            }
+
 
 
             <div className='grid grid-cols-2 py-1 gap-2 md:gap-3 lg:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
@@ -47,7 +38,7 @@ function Videos({ data }) {
                 {
                     data.map(video => {
                         return (
-                            <VideoThumbnail key={video.thumbnailArray} details={video} />
+                            <VideoThumbnail key={video.thumbnailArray} details={video} type={type} />
                         )
                     })
                 }
@@ -71,10 +62,10 @@ function Videos({ data }) {
                 <>
                     {currentPath !== "blocked" &&
                         <>
-                            < Outstream />
-                            <MultiformatAds />
+                            <BannerAds />
+                            <PopunderAds_2 />
                             <PopunderAds />
-                            <InstantMessageAds />
+                            <Outstream />
                         </>
                     }
                 </>
