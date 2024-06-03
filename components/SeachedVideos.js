@@ -1,10 +1,10 @@
-import VideoThumbnail from "./VideoThumbnail"
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import VideoThumbnail from "./VideoThumbnail";
 
-import { useContext } from 'react'
-import videosContext from '../context/videos/videosContext'
-import { BeatLoader } from 'react-spinners'
+import { useContext } from 'react';
+import { BeatLoader } from 'react-spinners';
+import videosContext from '../context/videos/videosContext';
 
 
 

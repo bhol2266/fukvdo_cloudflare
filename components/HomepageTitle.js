@@ -1,20 +1,12 @@
 
-import VideoThumbnail from "./VideoThumbnail"
-import { useRouter } from "next/router";
-import { useState, useRef, } from "react";
-import ReactPaginate from "react-paginate";
-import { useContext, useEffect } from 'react'
-import videosContext from '../context/videos/videosContext'
-import ReactCountryFlag from "react-country-flag"
+import { useEffect, useState } from "react";
+import ReactCountryFlag from "react-country-flag";
 
 
-import Link from 'next/link'
 import {
     ChevronRightIcon,
 } from '@heroicons/react/outline';
-import {
-    LightningBoltIcon,
-} from '@heroicons/react/solid';
+import Link from 'next/link';
 
 const HomepageTitle = ({ title, country, language }) => {
 

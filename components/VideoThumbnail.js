@@ -5,10 +5,9 @@ import {
 import {
     EyeIcon
 } from '@heroicons/react/solid';
-import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import PopunderAds from './Ads/PopunderAds';
-import { useRouter } from 'next/router';
 
 
 
@@ -75,7 +74,7 @@ function VideoThumbnail({ details, type }) {
 
     return (
         <div className="">
-            <a href={ type == "premium" ? "/membership":`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray} >
+            <a href={`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray} >
                 <div className={`animate-fade flex  items-start  flex-col justify-center  cursor-pointer  shadow-md shadow-blue-200  rounded-lg overflow-hidden transform transition duration-150`}>
 
 
