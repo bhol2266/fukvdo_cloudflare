@@ -8,6 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import PopunderAds from './Ads/PopunderAds';
+import ClickAdu_Popunder from './Ads/ClickAdu_Popunder';
 
 
 
@@ -24,7 +25,7 @@ function VideoThumbnail({ details, type }) {
             setvideoPage(true)
         }
     }
-    
+
     useEffect(() => {
         abcd()
     }, []);
@@ -125,6 +126,7 @@ function VideoThumbnail({ details, type }) {
 
             {!videoPage && <PopunderAds />}
 
+            <ClickAdu_Popunder />
 
         </div >
     )
