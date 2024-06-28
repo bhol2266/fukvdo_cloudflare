@@ -127,3 +127,4 @@ export const scrapeVideos = async (url) => {
 }
 
 
+export const runtime = 'edge';
