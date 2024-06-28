@@ -36,7 +36,9 @@ function Videos({ data, type }) {
             >
                 {
                     data.map(video => {
+                    
                         return (
+                            
                             <VideoThumbnail key={video.thumbnailArray} details={video} type={type} />
                         )
                     })
