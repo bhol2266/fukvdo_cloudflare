@@ -6,10 +6,11 @@ import Pagination from '../../../../components/Pagination';
 import Header from '../../../../components/Pornstar/Header';
 import Videos from "../../../../components/Videos";
 import { PlusIcon } from '@heroicons/react/outline';
+import { Scrape_Video_Item } from '@/config/Scrape_Video_Item';
 
 
 
-function Index({ video_collection, pages, channel_name, channel_subscriber, channel_by }) {
+function Index({ video_collection, pages, channel_name, channel_subscriber, channel_by,channel_image }) {
 
     const router = useRouter();
     const { code, channelname } = router.query
@@ -51,7 +52,7 @@ function Index({ video_collection, pages, channel_name, channel_subscriber, chan
 
                     <img
                         className={`object-cover w-44 h-44    rounded-[15px] border-[1px] border-gray-200 `}
-                        src={`${process.env.CLOUDFLARE_STORAGE}Chutlunds_channels_images/${channel_name.replace(/ /g, "_").toLowerCase()}.jpg`}
+                        src={`${process.env.CLOUDFLARE_STORAGE}Chutlunds_channels_images/${channel_image.replace("+"," ").replace("+"," ").replace("+"," ").replace(/ /g, "_").toLowerCase()}.jpg`}
                         alt={channel_name}
                         loading='lazy'
                     ></img>
@@ -120,13 +121,7 @@ export async function getStaticProps(context) {
 
     const scrape = async (url) => {
 
-        var thumbnailArray = []
-        var TitleArray = []
-        var durationArray = []
-        var likedPercentArray = []
-        var viewsArray = []
-        var previewVideoArray = []
-        var hrefArray = []
+
 
         const response = await fetch(url)
         const body = await response.text();
@@ -134,56 +129,9 @@ export async function getStaticProps(context) {
 
 
 
-
-        $('.video-list.video-rotate.video-list-with-ads .video-item picture img').each((i, el) => {
-
-            const data = $(el).attr("data-src")
-            thumbnailArray.push(data)
+        finalDataArray = Scrape_Video_Item($)
 
 
-        })
-        $('.video-list.video-rotate.video-list-with-ads .video-item picture img').each((i, el) => {
-
-            const data = $(el).attr("alt")
-            TitleArray.push(data)
-
-
-        })
-        $('.video-list.video-rotate.video-list-with-ads .video-item .l').each((i, el) => {
-
-            const data = $(el).text()
-            durationArray.push(data)
-        })
-
-
-
-        $('.video-list.video-rotate.video-list-with-ads .video-item .stats').each((i, el) => {
-
-            const text = $(el).text()
-            const likePercentage = text.substring(text.indexOf("%") - 4, text.indexOf("%") + 1)
-            const views = text.substring(0, text.indexOf("%") - 4)
-
-            likedPercentArray.push(likePercentage.trim())
-            viewsArray.push(views.trim())
-        })
-
-
-        $('.video-list.video-rotate.video-list-with-ads .video-item picture img').each((i, el) => {
-
-            const data = $(el).attr("data-preview")
-            previewVideoArray.push(data)
-        })
-
-
-
-        $('.video-list.video-rotate.video-list-with-ads .video-item a').each((i, el) => {
-
-            const href = $(el).attr('href');
-
-            hrefArray.push(`https://spankbang.com${href}`)
-    
-    
-        })
         let tempArray = []
         $('.pagination ul li').each((i, el) => {
             const data = $(el).text()
@@ -197,8 +145,8 @@ export async function getStaticProps(context) {
 
 
 
-        $('h1 em').each((i, el) => {
-            channel_name = $(el).text()
+        $('.channel-info h1').each((i, el) => {
+            channel_name = $(el).text().replace("Channel", "")
         })
         $('span em').each((i, el) => {
             channel_subscriber = $(el).text()
@@ -208,27 +156,11 @@ export async function getStaticProps(context) {
         channel_by = secondSpan.find("a").text()
 
 
-        for (let index = 0; index < thumbnailArray.length; index++) {
 
-            if (hrefArray[index] != undefined && previewVideoArray[index] != undefined && !thumbnailArray[index].includes("//assets.sb-cd.com")) {
-
-                finalDataArray.push({
-                    thumbnailArray: thumbnailArray[index],
-                    TitleArray: TitleArray[index],
-                    durationArray: durationArray[index],
-                    likedPercentArray: likedPercentArray[index],
-                    viewsArray: viewsArray[index],
-                    previewVideoArray: previewVideoArray[index],
-                    hrefArray: hrefArray[index],
-
-
-                })
-            }
-        }
     }
 
     await scrape(`https://spankbang.party/${code}/channel/${channelname}/?o=long`)
-console.log(`https://spankbang.party/${code}/channel/${channelname}/?o=long`);
+
 
     return {
         props: {
@@ -236,10 +168,12 @@ console.log(`https://spankbang.party/${code}/channel/${channelname}/?o=long`);
             pages: pages,
             channel_name: channel_name,
             channel_subscriber: channel_subscriber,
-            channel_by: channel_by
+            channel_by: channel_by,
+            channel_image:channelname
         }
     }
 }
+
 
 export const runtime = "experimental-edge";
 
