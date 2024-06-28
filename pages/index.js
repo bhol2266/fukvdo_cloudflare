@@ -20,7 +20,6 @@ import { shuffleData, updateCountry } from '../config/firebase/lib';
 export default function Home({ video_collection, pages, desiVideosDataArray, desiMmsVideoArray }) {
 
 
-  
   const { currentLocation, setcurrentLocation } = useContext(videosContext);
   const [countryVideos, setcountryVideos] = useState([]);
   const [countryName, setcountryName] = useState("");
@@ -211,7 +210,6 @@ export async function getStaticProps({ req, res }) {
   });
   const ress = await rawResponse.json();;
   const finalDataArray_Arrar = await ress.finalDataArray;
-
 
 
   var desiVideosDataArray = []
