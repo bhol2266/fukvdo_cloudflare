@@ -198,7 +198,7 @@ export async function getStaticProps({ req, res }) {
 
   const parcelData = { href: "https://spankbang.party/" }
 
-  const API_URL = `http://localhost:5000/getHomePageVideos`;
+  const API_URL = `${process.env.BACKEND_URL}getHomePageVideos`;
 
   const rawResponse = await fetch(API_URL, {
     headers: {
