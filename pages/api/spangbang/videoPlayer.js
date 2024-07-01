@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     var pornstar = []
     var videodetails = {}
     var noVideos = false
-
+    var positionsArray = []
 
     function moveFirstNItemsToEnd(array, n) {
         // Get the first n items
@@ -44,7 +44,6 @@ export default async function handler(req, res) {
         const $ = cheerio.load(body)
         relatedVideos = moveFirstNItemsToEnd(Scrape_Video_Item($),8)
     }
-
 
 
 
@@ -64,17 +63,14 @@ export default async function handler(req, res) {
         const body = await response.text();
         const $ = cheerio.load(body)
 
-
-
-
         await scrape(body)
 
         $('video source').each((i, el) => {
             const data = $(el).attr("src")
             default_video_src = data
         })
-        
-   
+
+
         const cut1 = body.substring(body.indexOf('<main class="main-container">'), body.indexOf(`<main class="main-container">`) + 1000);
         const cut2 = cut1.substring(cut1.indexOf('var stream_data'), body.indexOf("mpd"));
         let video_qualities_url_array = extractUrls(cut2)
@@ -87,8 +83,8 @@ export default async function handler(req, res) {
             }
         })
 
-       
-       
+
+
 
         // Sometime the default_video_src is null in that case assinging second last url from "video_qualities_url_array"
         if (default_video_src.length < 5) {
@@ -117,7 +113,7 @@ export default async function handler(req, res) {
 
 
 
-      
+
 
 
 
@@ -151,7 +147,7 @@ export default async function handler(req, res) {
             }
 
         }
-      
+
 
 
         //This is just replacing quality query from default_video_src according to vailable qualities 
@@ -191,6 +187,11 @@ export default async function handler(req, res) {
 
         })
 
+        $('.positions-wrapper .positions li').each((index, element) => {
+            const timestamp = $(element).attr('data-timestamp');
+            const positionName = $(element).text().trim();
+            positionsArray.push({ positionName, timestamp });
+        });
 
         // This is the data for video Details which was getting from localstorage previosly
         var Title = ''
@@ -239,7 +240,6 @@ export default async function handler(req, res) {
 
 
 
-
         finalDataArray = {
             default_video_src: default_video_src,
             video_qualities_available: video_qualities_available,
@@ -273,6 +273,7 @@ export default async function handler(req, res) {
         relatedVideos: relatedVideos.length > 100 ? relatedVideos.slice(0, 100) : relatedVideos,
         pornstar: pornstar,
         video_details: videodetails,
+        positionsArray:positionsArray,
         noVideos: noVideos,
     }
 

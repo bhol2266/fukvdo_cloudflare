@@ -17,7 +17,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots, preloaded_video_qualityy, pornstar }) => {
+const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots, preloaded_video_qualityy, pornstar, loggedIn, positionsArray }) => {
 
 
 
@@ -25,11 +25,14 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
         return pornstar.indexOf(element) === index;
     });
 
+
     const { user } = UserAuth();
 
     const videoPlayerRef = useRef(null)
+    const [videoDuration, setVideoDuration] = useState(0);
     const playBtnRef = useRef(null)
     const router = useRouter()
+
 
     const [Quality, setQuality] = useState(Qualitys)
     const [VideoSrc, setVideoSrc] = useState(videolink_qualities_screenshots.default_video_src)
@@ -42,6 +45,10 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
 
     //Quality Changer Onclick
     const menuItemOnClick = (quality) => {
+        // if (quality == "1080p" || quality == "4k") {
+        //     router.push("/membership")
+        //     return
+        // }
         if (quality != Quality) {
 
             const currentTime = videoPlayerRef.current.currentTime;
@@ -85,7 +92,6 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
     }
 
 
-
     const download = () => {
 
         if (!user) {
@@ -95,6 +101,20 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
             router.push(VideoSrc)
         }
     }
+
+    const switchToScene = (obj) => {
+
+        console.log(obj.positionName);
+        console.log(obj.timestamp);
+
+
+        //videotime will is set in seconds by default
+        videoPlayerRef.current.currentTime = obj.timestamp
+        videoPlayerRef.current.play();
+
+    }
+
+
 
 
     useEffect(() => {
@@ -113,9 +133,22 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
         })
         settagString(tagsString);
 
+
+        video_details.duration
+
+        setVideoDuration(timeStringToSeconds(video_details.duration))
+
     }, []);
 
+    function timeStringToSeconds(timeString) {
+        const [minutes, seconds] = timeString.split(':').map(parseFloat);
+        return minutes * 60 + seconds;
+    }
+    
 
+    const calculateLeftPosition = (timestamp) => {
+        return `calc(${(timestamp / videoDuration) * 100}% - 10px)`;
+    };
 
 
     return (
@@ -133,11 +166,32 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
                 </video>
                 <div className={`absolute top-0 left-0 `} id="adContainer"></div>
                 <button className="hidden" id="playButton">Play</button>
+
+
+                <div className="absolute bottom-[10px] lg:bottom-0  2xl:bottom-[-10px] left-0 right-0 flex justify-between">
+                    {/* Scene icons */}
+                    {positionsArray.map(obj => (
+                        <img
+                            key={obj.timestamp}
+                            src={`/kamasutra_icons/${obj.positionName.toLowerCase()}.png`}
+                            className="scale-50 lg:scale-75 2xl:scale-100 absolute w-[50px] h-[50px] bg-black bg-opacity-50 hover:bg-pink-500 hover:bg-opacity-100 transition-colors rounded-[7px] cursor-pointer"
+                            style={{
+                                left: calculateLeftPosition(obj.timestamp),
+                            }}
+                            alt={obj.positionName}
+                            onClick={() => switchToScene(obj)} // Function to seek to timestamp
+                        />
+                    ))}
+                </div>
+
+
+
             </div>
 
 
 
-            <div className="flex justify-between py-2 text-sm md:text-lg   ">
+
+            <div className="flex justify-between py-2 text-sm md:text-lg   mt-[20px] lg:mt-[40px] 2xl:mt-[60px]">
                 <div className="flex justify-around items-center space-x-2 md:space-x-4 md:text-lg ">
 
                     <div className='flex items-center space-x-1'>
@@ -160,12 +214,12 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
 
                     {/* <DownloadIcon className='h-7 text-gray-700' /> */}
 
-                    <button onClick={download} className='font-inter text-[12px] lg:text-lg px-2 lg:px-4 py-1 lg:py-1.5 bg-button rounded-md text-white text-center lg:mt-1'>Download</button>
+                    <button onClick={download} className='font-inter text-[12px] lg:text-lg px-2 lg:px-4 py-1 lg:py-1.5 bg-button rounded-md text-white text-center lg:mt-1 navbar'>Download</button>
                     <Menu as="div" className="relative  text-left">
                         <div className=' w-fit relative '>
                             <Menu.Button className="flex items-center space-x-1">
                                 <CogIcon className="h-9 text-gray-600 m-1  duration-300" />
-                                <p className={`${Quality === '720p' || Quality === '1080p' || Quality === '4k' ? "" : "hidden"} text-xs bg-red-500 rounded text-white absolute top-1 right-0`}>HD</p>
+                                <p className={`${Quality === '720p' || Quality === '1080p' || Quality === '4k' ? "" : "hidden"}  text-xs bg-red-500 rounded text-white absolute top-1 right-0`}>HD</p>
                             </Menu.Button>
                         </div>
 
@@ -178,7 +232,7 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                         >
-                            <Menu.Items className="z-50 origin-top-right absolute right-0 bottom-11 mt-2 w-[80px] rounded-md shadow-lg  bg-gray-200  ">
+                            <Menu.Items className="z-50 origin-top-right absolute right-0 bottom-11 mt-2 w-[80px] rounded-md shadow-lg  bg-gray-200  navbar">
                                 <div className=" rounded">
 
                                     {videolink_qualities_screenshots.video_qualities_available.map(quality => {
@@ -187,6 +241,8 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
                                                 {({ active }) => (
                                                     <div className='hover:bg-gray-300 hover:shadow-lg hover:rounded'>
                                                         <div className={`${quality === Quality ? "text-red-500" : ""} relative px-4  w-fit flex items-center justify-between`}>
+
+                                                            <LockClosedIcon className={`${quality === '1080p' || quality === '4k' ? "hidden" : "hidden"} h-3 text-gray-600 absolute top-3 left-0.5`} />
                                                             <a
                                                                 href="#"
                                                                 className={classNames(
@@ -212,6 +268,29 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
                 </div>
 
             </div>
+
+
+
+            {/* Positions  */}
+
+            {positionsArray.length != 0 &&
+
+                <div className='flex  items-center mb-2 '>
+
+                    <span className='font-inter text-sm lg:text-md 2xl:text-xl font-bold'>Skip to scene:</span>
+
+                    <div className='flex flex-wrap  ml-2'>
+                        {
+                            positionsArray.map(obj => {
+                                return (
+                                    <p onClick={() => switchToScene(obj)} key={obj.positionName} className='text-xs md:text-sm mr-1  mt-1 cursor-pointer hover:bg-gray-900 rounded px-[5px] py-[2px]  font-inter text-white bg-pink-600'>{obj.positionName}</p>
+
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            }
 
 
             {/* Tags */}
