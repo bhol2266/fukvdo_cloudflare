@@ -168,7 +168,7 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
                 <button className="hidden" id="playButton">Play</button>
 
 
-                <div className="absolute bottom-[10px] lg:bottom-0  2xl:bottom-[-10px] left-0 right-0 flex justify-between">
+                <div className="absolute bottom-[50px]  left-0 right-0 flex justify-between">
                     {/* Scene icons */}
                     {positionsArray.map(obj => (
                         <img
@@ -191,7 +191,7 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
 
 
 
-            <div className="flex justify-between py-2 text-sm md:text-lg   mt-[20px] lg:mt-[40px] 2xl:mt-[60px]">
+            <div className="flex justify-between py-2 text-sm md:text-lg  ">
                 <div className="flex justify-around items-center space-x-2 md:space-x-4 md:text-lg ">
 
                     <div className='flex items-center space-x-1'>
