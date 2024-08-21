@@ -26,7 +26,6 @@ let autoplayRequiresMuted;
  */
 function initDesktopAutoplayExample() {
 
-
   videoContent = document.getElementById('contentElement');
   playButton = document.getElementById('playButton');
   playButton.addEventListener('click', () => {
@@ -320,5 +319,4 @@ function changeVideoPlayerProperty() {
 
 
 //Start the process
-// initDesktopAutoplayExample()
-
+initDesktopAutoplayExample()

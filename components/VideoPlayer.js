@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import {
     ClockIcon,
     CogIcon,
-    EyeIcon,LockClosedIcon,
+    EyeIcon, LockClosedIcon,
     MinusIcon,
     PlusIcon,
     ThumbUpIcon
@@ -144,7 +144,7 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
         const [minutes, seconds] = timeString.split(':').map(parseFloat);
         return minutes * 60 + seconds;
     }
-    
+
 
     const calculateLeftPosition = (timestamp) => {
         return `calc(${(timestamp / videoDuration) * 100}% - 10px)`;
@@ -155,12 +155,18 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
 
         <div >
 
-            <Script src="//imasdk.googleapis.com/js/sdkloader/ima3.js" strategy="beforeInteractive" />
-            <Script onLoad={() => { initDesktopAutoplayExample() }} src="/vastAd.js" strategy="lazyOnload" />
+            <Script
+                src="//imasdk.googleapis.com/js/sdkloader/ima3.js"
+                onLoad={() => {
+                    const script = document.createElement("script");
+                    script.src = "/vastAd.js";
+                    document.body.appendChild(script);
+                }}
+            />
 
 
             <div id="mainContainer" className={`relative w-full aspect-video object-contain  group  shadow-2xl`}>
-                <video className={`w-full h-full cursor-pointer`} id="contentElement" onContextMenu={(e) => e.preventDefault()} ref={videoPlayerRef} poster={video_details.thumbnail} width="852" height="480" controls controlsList="nodownload"
+                <video className={`w-full h-full cursor-pointer`} id="contentElement" onContextMenu={(e) => e.preventDefault()} ref={videoPlayerRef} muted poster={video_details.thumbnail} width="852" height="480" controls controlsList="nodownload"
                 >
                     <source src={VideoSrc} type="video/mp4" />
                 </video>
@@ -277,7 +283,7 @@ const VideoPlayer = ({ video_details, Qualitys, videolink_qualities_screenshots,
 
                 <div className='flex  items-center mb-2 '>
 
-<span className="font-inter text-sm lg:text-md 2xl:text-xl font-bold whitespace-nowrap">Skip to scene:</span>
+                    <span className="font-inter text-sm lg:text-md 2xl:text-xl font-bold whitespace-nowrap">Skip to scene:</span>
 
                     <div className='flex flex-wrap  ml-2'>
                         {
