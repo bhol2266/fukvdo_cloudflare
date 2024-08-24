@@ -41,6 +41,7 @@ function MyApp({ Component, pageProps }) {
 
         {/* Ads Netword Verification  */}
         <meta name="clckd" content="f4f7556a2f970596698f7783f21dd137" />
+    <meta name="6a97888e-site-verification" content="c07ebc021bae92e608840cc5eefd9960"/>
 
       </Head>
 
